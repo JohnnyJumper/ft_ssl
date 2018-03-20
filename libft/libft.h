@@ -6,7 +6,7 @@
 /*   By: jtahirov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:57:50 by jtahirov          #+#    #+#             */
-/*   Updated: 2018/01/24 00:46:59 by jtahirov         ###   ########.fr       */
+/*   Updated: 2018/03/15 00:31:09 by jtahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,6 @@ void			ft_object_bit_print(size_t const size, void const *const ptr);
 unsigned long	ft_atoh(unsigned char *input);
 unsigned char	ft_chrtohex(char x);
 int				ft_getopt(int argc, char *const argv[], const char *optstring);
+unsigned long	ft_power(unsigned long x, unsigned long y, int p);
 
 #endif

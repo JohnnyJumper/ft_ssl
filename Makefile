@@ -6,7 +6,7 @@
 #    By: jtahirov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 17:27:11 by jtahirov          #+#    #+#              #
-#    Updated: 2018/02/12 22:43:39 by jtahirov         ###   ########.fr        #
+#    Updated: 2018/03/19 21:29:31 by jtahirov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CFLAGS = -Wall -Wextra -Werror -I $(IDIR) -g
 NAME = ft_ssl
 IDIR = ./include
 
-_DEPS = ft_ssl.h base64.h des.h ft_md5.h ft_sha224.h ft_sha256.h
+_DEPS = ft_ssl.h base64.h des.h ft_md5.h ft_sha224.h ft_sha256.h ft_rsa.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
 SRC = ft_ssl.c utillity.c
@@ -44,14 +44,19 @@ SHA224_SRC = ft_sha224.c ft_sha224message.c ft_sha224parse.c ft_sha224algo.c ft_
 			 ft_sha224algo_helper.c ft_sha224_utillity.c ft_sha224output.c
 SHA224 = $(patsubst %, $(SHA224_DIR)/%, $(SHA224_SRC))
 
+RSA_DIR = ./rsa
+RSA_SRC =  main.c random.c
+RSA = $(patsubst %, $(RSA_DIR)/%, $(RSA_SRC))
+
 SRC_OBJ =$(SRC:.c=.o)
 BASE64_OBJ = $(BASE64:.c=.o)
 DES_OBJ = $(DES:.c=.o)
 MD5_OBJ = $(MD5:.c=.o)
 SHA256_OBJ = $(SHA256:.c=.o)
 SHA224_OBJ = $(SHA224:.c=.o)
+RSA_OBJ = $(RSA:.c=.o)
 
-OBJ = $(SRC_OBJ) $(BASE64_OBJ) $(DES_OBJ) $(MD5_OBJ) $(SHA256_OBJ) $(SHA224_OBJ)
+OBJ = $(SRC_OBJ) $(BASE64_OBJ) $(DES_OBJ) $(MD5_OBJ) $(SHA256_OBJ) $(SHA224_OBJ) $(RSA_OBJ)
 LIBS = ./libft/libft.a
 
 all: libftcreate $(NAME)
@@ -66,6 +71,26 @@ $(NAME): $(OBJ) $(LIBS)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 	@echo "\033[0m\c"
 
+rsa: $(RSA_OBJ) $(LIBS)
+	@echo "\033[0;34m\c"
+	$(CC) -o ft_ssl_$@ $^ $(CFLAGS) $(LIBS)
+	@echo "\033[0m\c"
+
+base64: $(BASE64_OBJ) $(LIBS)
+	@echo "\033[0;34m\c"
+	$(CC) -o ft_ssl_$@ $^ $(CFLAGS) $(LIBS)
+	@echo "\033[0m\c"
+
+des: $(DES_OBJ) $(LIBS)
+	@echo "\033[0;34m\c"
+	$(CC) -o ft_ssl_$@ $^ $(CFLAGS) $(LIBS)
+	@echo "\033[0m\c"
+
+md5: $(MD5_OBJ) $(LIBS)
+	@echo "\033[0;34m\c"
+	$(CC) -o ft_ssl_$@ $^ $(CFLAGS) $(LIBS)
+	@echo "\033[0m\c"
+
 libftcreate:
 	@$(MAKE) -C ./libft
 
@@ -76,6 +101,7 @@ clean:
 fclean: clean
 	@/bin/rm -f $(NAME)
 	@$(MAKE) fclean -C ./libft
+
 
 re: fclean all
 

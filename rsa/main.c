@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_rsa.h                                           :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jtahirov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/14 01:45:37 by jtahirov          #+#    #+#             */
-/*   Updated: 2018/03/19 23:59:22 by jtahirov         ###   ########.fr       */
+/*   Created: 2018/03/19 21:22:26 by jtahirov          #+#    #+#             */
+/*   Updated: 2018/03/20 00:33:05 by jtahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_RSA_H
-# define FT_RSA_H
+#include "../include/ft_rsa.h"
+#include <math.h>
 
-# include "../libft/libft.h"
-# include <stdbool.h>
+int		main()
+{
+	int		*primes;
+	int		*ptr;
+	int		size;
+	int		i;
+	int		max;
 
+	size = 20;
+	ptr = &size;
+	max = 100000000;
+	primes = simpleSieve(max, ptr);
+	printf("This is max = %d,  and this is sqrt(max) = %f\n", max, sqrt(max));
 
-typedef unsigned int t_uint;
-
-int			ft_primeq(uint64_t prime, int probability);
-t_uint		ft_random(int option);
-t_uint		ft_random_between(t_uint a, t_uint b, int option);
-int			*simpleSieve(int limit, int *size);
-
-
-#endif
+	for (i = 0; i < (*ptr - 2); i++)
+		printf("%d ", primes[i]);
+	printf("%d\n", primes[i + 1]);
+	return (0);
+}
