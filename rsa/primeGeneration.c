@@ -6,18 +6,18 @@
 /*   By: jtahirov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/22 22:27:30 by jtahirov          #+#    #+#             */
-/*   Updated: 2018/03/22 22:28:45 by jtahirov         ###   ########.fr       */
+/*   Updated: 2018/03/22 23:01:32 by jtahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_rsa.h"
 
 #ifndef UINT_MAX
-# define UINT_MAX 4294967295
+# define UINT_MAX 2147483648
 #endif
 
 #ifndef SAFE_MIN 
-# define SAFE_MIN (1<<2*8)
+# define SAFE_MIN 3037000499
 #endif
 
 static bool			ft_initial_sieve_test(unsigned int number)
