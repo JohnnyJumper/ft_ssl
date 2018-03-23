@@ -6,7 +6,7 @@
 /*   By: jtahirov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 01:44:17 by jtahirov          #+#    #+#             */
-/*   Updated: 2018/03/15 00:27:12 by jtahirov         ###   ########.fr       */
+/*   Updated: 2018/03/22 21:07:06 by jtahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ static unsigned int	ft_urandom()
 	return (answer);
 }
 
-static int	ft_equation(int phi, int *power)
-{
-	*power = 0;
-	while (phi % 2 == 0)
-	{
-		phi /= 2;
-		*power += 1;
-	}
-	return (phi);
-}
+/* static int	ft_equation(int phi, int *power) */
+/* { */
+/* 	*power = 0; */
+/* 	while (phi % 2 == 0) */
+/* 	{ */
+/* 		phi /= 2; */
+/* 		*power += 1; */
+/* 	} */
+/* 	return (phi); */
+/* } */
 
 
 static int	ft_miller_test(int phi, int prime)
@@ -78,16 +78,5 @@ int			ft_primeq(uint64_t prime, int probability)
 		if (!ft_miller_test(phi, prime))
 			return(0);
 	}
-	return (1);
-}
-
-int		main(int argc, char **argv)
-{
-	if (argc != 3)
-		exit(0);
-	if (ft_primeq(ft_atoi(argv[1]), (ft_atoi(argv[2]))))
-		ft_printf("prime\n");
-	else
-		ft_printf("not a prime\n");
 	return (1);
 }

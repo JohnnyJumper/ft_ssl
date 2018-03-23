@@ -6,7 +6,7 @@
 #    By: jtahirov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 17:27:11 by jtahirov          #+#    #+#              #
-#    Updated: 2018/03/19 21:29:31 by jtahirov         ###   ########.fr        #
+#    Updated: 2018/03/22 21:05:20 by jtahirov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ SHA224_SRC = ft_sha224.c ft_sha224message.c ft_sha224parse.c ft_sha224algo.c ft_
 SHA224 = $(patsubst %, $(SHA224_DIR)/%, $(SHA224_SRC))
 
 RSA_DIR = ./rsa
-RSA_SRC =  main.c random.c
+RSA_SRC =  main.c random.c ft_primeq.c
 RSA = $(patsubst %, $(RSA_DIR)/%, $(RSA_SRC))
 
 SRC_OBJ =$(SRC:.c=.o)
@@ -59,7 +59,11 @@ RSA_OBJ = $(RSA:.c=.o)
 OBJ = $(SRC_OBJ) $(BASE64_OBJ) $(DES_OBJ) $(MD5_OBJ) $(SHA256_OBJ) $(SHA224_OBJ) $(RSA_OBJ)
 LIBS = ./libft/libft.a
 
-all: libftcreate $(NAME)
+all: $(NAME)
+
+$(LIBS):
+	@+$(MAKE) -C ./libft
+
 
 %.o: %.c $(DEPS)
 	@echo "\033[0;32m\c"
@@ -90,9 +94,6 @@ md5: $(MD5_OBJ) $(LIBS)
 	@echo "\033[0;34m\c"
 	$(CC) -o ft_ssl_$@ $^ $(CFLAGS) $(LIBS)
 	@echo "\033[0m\c"
-
-libftcreate:
-	@$(MAKE) -C ./libft
 
 clean:
 	@/bin/rm -f $(OBJ)

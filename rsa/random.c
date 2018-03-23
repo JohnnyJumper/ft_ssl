@@ -6,7 +6,7 @@
 /*   By: jtahirov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 20:52:26 by jtahirov          #+#    #+#             */
-/*   Updated: 2018/03/20 00:30:25 by jtahirov         ###   ########.fr       */
+/*   Updated: 2018/03/22 21:13:33 by jtahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,25 @@ unsigned int		ft_random_between(unsigned int a, unsigned int b, int option)
 	return (ft_random(option) % (b + 1 - a) + a);
 }
 
-int		*simpleSieve(int limit, int *size)
+
+static bool			ft_initial_sieve_test(unsigned int number)
+{
+	static int		primes[53] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41,
+				43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107,
+				109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179,
+				181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 251};
+	int				counter;
+
+	counter = 0;
+	while (counter < 53)
+		if (number % primes[counter++] == 0)
+			return  (false);
+	return (true);
+}
+
+
+
+int					*simpleSieve(int limit, int *size)
 {
 	bool	*mark;
 	int		prime;
@@ -85,26 +103,41 @@ int		*simpleSieve(int limit, int *size)
 	return (result - *size);
 }
 
+static unsigned int		ft_prime_tests()
+{
+	unsigned int counter;
+	unsigned int number;
 
-/* void simpleSieve(int limit, vector<int> &prime) */
-/* { */
-    /* for (int p=2; p*p<limit; p++) */
-    /* { */
-    /*     // If p is not changed, then it is a prime */
-    /*     if (mark[p] == true) */
-    /*     { */
-    /*         // Update all multiples of p */
-    /*         for (int i=p*2; i<limit; i+=p) */
-    /*             mark[i] = false; */
-    /*     } */
-    /* } */
- 
-    /* // Print all prime numbers and store them in prime */
-    /* for (int p=2; p<limit; p++) */
-    /* { */
-    /*     if (mark[p] == true) */
-    /*     { */
-    /*         prime.push_back(p); */
-    /*         cout << p << " "; */
-    /*     } */
-    /* } */
+	while (true)
+	{
+		counter = 0;
+		number = ft_random('r');
+		if (ft_initial_sieve_test(number))
+			ft_printf("%r .", 2);
+		else
+			continue ;
+		while (counter++ < 27)
+		{
+			if (ft_primeq(number, 64))
+				ft_printf("%r +", 2);
+			else
+				break;
+		}
+		if (counter != 28)
+			continue;
+		else
+			break;
+	}
+	ft_printf("%r \n", 2);
+	return (number);
+}
+
+unsigned int		*ft_get_primes()
+{
+	unsigned int	*primes;
+
+	primes = ft_memalloc((sizeof(*primes) * 2));
+	primes[0] = ft_prime_tests();
+	primes[1] = ft_prime_tests();
+	return (primes);
+}
