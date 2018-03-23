@@ -6,7 +6,7 @@
 #    By: jtahirov <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 17:27:11 by jtahirov          #+#    #+#              #
-#    Updated: 2018/03/22 21:05:20 by jtahirov         ###   ########.fr        #
+#    Updated: 2018/03/22 22:29:53 by jtahirov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ SHA224_SRC = ft_sha224.c ft_sha224message.c ft_sha224parse.c ft_sha224algo.c ft_
 SHA224 = $(patsubst %, $(SHA224_DIR)/%, $(SHA224_SRC))
 
 RSA_DIR = ./rsa
-RSA_SRC =  main.c random.c ft_primeq.c
+RSA_SRC =  main.c random.c ft_primeq.c primeGeneration.c
 RSA = $(patsubst %, $(RSA_DIR)/%, $(RSA_SRC))
 
 SRC_OBJ =$(SRC:.c=.o)
@@ -97,11 +97,11 @@ md5: $(MD5_OBJ) $(LIBS)
 
 clean:
 	@/bin/rm -f $(OBJ)
-	@$(MAKE) clean -C ./libft
+	@+$(MAKE) clean -C ./libft
 
 fclean: clean
 	@/bin/rm -f $(NAME)
-	@$(MAKE) fclean -C ./libft
+	@+$(MAKE) fclean -C ./libft
 
 
 re: fclean all
