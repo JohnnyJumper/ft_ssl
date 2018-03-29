@@ -29,7 +29,7 @@ t_ulong	ft_get_modulo(t_uint pub, t_ulong totient)
 {
 	long int	worker[all];
 	t_ulong		temp;
-	t_ulong		answer;
+	// t_ulong		answer;
 
 	ft_init_workers(worker, pub, totient);
 	while(1)
@@ -46,6 +46,6 @@ t_ulong	ft_get_modulo(t_uint pub, t_ulong totient)
 		if (worker[s_new] == 1 || worker[t_new] == 1)
 			break ;
 	}
-	answer = (worker[s_new] == 1) ? worker[t_new] : worker[s_new];
-	return(answer);
+	// answer = (worker[s_new] == 1) ? worker[t_new] : worker[s_new];
+	return(worker[t_new]);
 }

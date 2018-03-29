@@ -12,49 +12,39 @@
 
 #include "../include/ft_rsa.h"
 
-static t_binput	*create_bstruct_rsa()
+static char 	*ft_decrypto_to_base64(t_dercrypto *main)
 {
-	t_binput	*new;
+	char 		*encoded;
+	t_binput 	base64;
 
-	new = (t_binput *)ft_memalloc(sizeof(t_binput));
-	new->len = sizeof(t_ulong);
-	return (new);
+	ft_bzero(&base64, sizeof(t_binput));
+	base64.len = sizeof(t_dercrypto);
+	base64.flag.encode = true;
+	encoded = ft_base64_encode((void *)main, &base64);
+	return (encoded);
 }
 
-static char		*ft_rsa_to_base64(unsigned long *res)
+int main()
 {
-	t_binput	*input_base;
-	char		*answer;
-	
-	input_base = create_bstruct_rsa();
-	answer = ft_base64_encode((char *)&res, input_base);
-	return (answer);
-}
+	t_dercrypto main;
+	unsigned long totient;
 
-int				main()
-{
-	unsigned int			*primes;
-	unsigned long long		rsa_modulus;
-	unsigned long			totient;
-	unsigned int			public_constant;
-	unsigned long			inverse_modulo;
-	unsigned long 			temp;
-
-
-	temp = 0 - 1;
-	while(1)
+	while (true)
 	{
-		primes = ft_get_primes();
-		rsa_modulus = (t_ulong)primes[0] * (t_ulong)primes[1];
-		totient = (primes[0] - 1) * (primes[1] - 1);
-		public_constant = 65537;
-		inverse_modulo = ft_get_modulo(public_constant, totient);
-		if ((public_constant * inverse_modulo) % totient == 1)
+		ft_bzero(&main, sizeof(t_dercrypto));
+		main.public_exponent = 65537;
+		ft_get_primes(&main);
+		main.modulus = main.prime1 * main.prime2;
+		totient = (main.prime1 - 1) * (main.prime2 - 1);
+		main.private_exponent = ft_get_modulo(main.public_exponent, totient);
+		main.exponent1 = main.private_exponent % (main.prime1 - 1);
+		main.exponent2 = main.private_exponent % (main.prime2 - 1);
+		if ((main.public_exponent * main.private_exponent) % totient == 1)
 			break ;
-	}
-	ft_printf("prime1 = %lu     prime2 = %lu\n", primes[0], primes[1]);
-	ft_printf("n = %llu, phi = %llu, d = %llu\n", rsa_modulus, totient, inverse_modulo);
-	ft_printf("e * d mod phi = %lu\n", (public_constant * inverse_modulo) % totient);
-	ft_printf("%s",ft_rsa_to_base64(&inverse_modulo));
-	return (0);
+	};
+	ft_printf("e is %d (%#x)\n", main.public_exponent, main.public_exponent);
+	ft_printf("-----BEGIN RSA PRIVATE KEY-----\n");
+	ft_printf("%s", ft_decrypto_to_base64(&main));	
+	ft_printf("-----END RSA PRIVATE KEY-----\n");
+return (0);
 }
