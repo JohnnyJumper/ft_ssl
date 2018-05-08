@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jtahirov <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: jtahirov <jtahirov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 17:27:11 by jtahirov          #+#    #+#              #
-#    Updated: 2018/03/23 03:02:42 by jtahirov         ###   ########.fr        #
+#    Updated: 2018/05/08 15:26:07 by jtahirov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 SRC = ft_ssl.c utillity.c
 
 BASE64_DIR = ./base64
-BASE64_SRC = ft_base64.c ft_parse64.c ft_base64table.c ft_base64_decode.c ft_base64_encode.c
+BASE64_SRC = ft_base64.c ft_parse64.c ft_base64table.c ft_base64_decode.c ft_base64_encode.c ft_base64_encodev2.c
 BASE64 = $(patsubst %, $(BASE64_DIR)/%, $(BASE64_SRC))
 
 DES_DIR = ./des

@@ -6,7 +6,7 @@
 /*   By: jtahirov <jtahirov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 01:45:37 by jtahirov          #+#    #+#             */
-/*   Updated: 2018/05/07 20:22:23 by jtahirov         ###   ########.fr       */
+/*   Updated: 2018/05/08 15:07:55 by jtahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ static char         *ft_asnpad(char *hex_rep)
     return (hex_rep);
 }
 
-static char         *ft_asnlen(char *hex_rep)
+static t_uchar         *ft_asnlen(char *hex_rep, int *Tlen, int *final)
 {
-    int     len;
-    int     threshold;
-    char    *answer;
-    int     prefix;
+    int             len;
+    int             threshold;
+    t_uchar   *answer;
+    int             prefix;
 
-    len = ft_strlen(hex_rep) / 2;
+    len = (Tlen) ? *Tlen : ft_strlen(hex_rep) / 2;
     threshold = 0x7F;
 // any length from 0 up to 0x7F is encoded as one byte in 00..7F;
 // any higher length up to 0xFF is encoded as prefix 81 and one byte;
@@ -50,8 +50,10 @@ static char         *ft_asnlen(char *hex_rep)
 // any higher length up to 0xFFFFFFFF is encoded as prefix 84 and four bytes;
     if (len < threshold)
     {
-        answer = ft_strnew(1);
-        answer[0] = (char)len;
+        answer = (t_uchar *)ft_strnew(1);
+        answer[0] = (t_uchar)len;
+        if (final)
+            *final = 1;
         return  (answer);
     }
     prefix = 0x81;
@@ -62,39 +64,41 @@ static char         *ft_asnlen(char *hex_rep)
         prefix++;
         threshold = threshold << 8 | 0xFF;
     }
-    answer = ft_strnew(1 + (prefix - 0x80));
-    answer[0] = (unsigned char)prefix;
-    ft_memcpy(&answer[1], (char *)&len, len);
+    if (final)
+        *final = (1 + (prefix - 0x80));
+    answer = (t_uchar *)ft_strnew(1 + (prefix - 0x80));
+    answer[0] = (t_uchar)prefix;
+    ft_memcpy(&answer[1], (t_uchar *)&len, len);
     return (answer);
 }
 
-static unsigned char   *ft_asnint(unsigned long number, int *size)
+static t_uchar   *ft_asnint(unsigned long number, int *size)
 {
     char            *hex_rep;
-    char            *encoded_len;
-    unsigned char   *data;
-    unsigned char   *answer;
-    unsigned char   *tmp;
+    t_uchar   *encoded_len;
+    t_uchar   *data;
+    t_uchar   *answer;
+    t_uchar   *tmp;
 
     hex_rep = ft_asnpad(ft_dectohex(number));
-    encoded_len = ft_asnlen(hex_rep);
-    *size = (2 + ft_strlen(hex_rep)/2 + ft_strlen(encoded_len)/2);
-    answer = (unsigned char *)ft_strnew(*size);
+    encoded_len = ft_asnlen(hex_rep, NULL, NULL);
+    *size = (2 + ft_strlen(hex_rep)/2 + ft_strlen((char *)encoded_len)/2);
+    answer = (t_uchar *)ft_strnew(*size);
     answer[0] = (char)INT_ASN1;
     tmp = answer;
-    answer = (unsigned char *)ft_strjoin((char *)answer, encoded_len);
+    answer = (t_uchar *)ft_strjoin((char *)answer, (char *)encoded_len);
     ft_strdel((char **)&tmp);
     data = ft_hextodata(hex_rep);
-    answer = ft_memjoin(answer, (1 + ft_strlen(encoded_len)), data,
+    answer = ft_memjoin(answer, (1 + ft_strlen((char *)encoded_len)), data,
                                             ft_strlen(hex_rep)/2);
     return (answer);
 }
 
-static unsigned char *ft_iterloop(t_dercrypto *main, unsigned char **asnencoded, int *total_size)
+static t_uchar *ft_iterloop(t_dercrypto *main, t_uchar **asnencoded, int *total_size)
 {
     t_itercrypto    iter;
-    unsigned char   *tmp;
-    unsigned char   *asnint;
+    t_uchar   *tmp;
+    t_uchar   *asnint;
     int             size;
     int             i;
     
@@ -113,16 +117,36 @@ static unsigned char *ft_iterloop(t_dercrypto *main, unsigned char **asnencoded,
     return (*asnencoded);
 }
 
-unsigned char        *ft_get_asn1(t_dercrypto *main, int *total_size)
+static t_uchar    *ft_combine(t_uchar **asnencoded, int *total_len,
+                                t_uchar *len, int structLen)
 {
-    unsigned char   *asnencoded;
+    t_uchar     *ulen;
+    t_uchar     *tmp;
 
-    asnencoded = (unsigned char *)ft_strnew(*total_size);
-    asnencoded[0] = (char)SEQUENCE_ASN1;
-    asnencoded[1] = (char)INT_ASN1;
-    asnencoded[2] = (char)0x01;
-    asnencoded[3] = (char)0x00;
-    asnencoded = ft_iterloop(main, &asnencoded, total_size);
-    return (asnencoded);
+    ulen = (t_uchar *)ft_strnew(1);
+    ulen[0] = (t_uchar)SEQUENCE_ASN1;
+    tmp = len;
+    ulen = ft_memjoin(ulen, 1, len, structLen);
+    ft_strdel((char **)&tmp);
+    tmp = *asnencoded;
+    *asnencoded = ft_memjoin(ulen, 1 + structLen, *asnencoded, *total_len);
+    *total_len += 1 + structLen;
+    ft_strdel((char **)&tmp);
+    return (*asnencoded);
 }
 
+t_uchar        *ft_get_asn1(t_dercrypto *main, int *total_size)
+{
+    t_uchar   *asnencoded;
+    t_uchar   *encoded_len;
+    int       StructLen;
+
+    asnencoded = (t_uchar *)ft_strnew(*total_size);
+    asnencoded[0] = (char)INT_ASN1;
+    asnencoded[1] = (char)0x01;
+    asnencoded[2] = (char)0x00;
+    asnencoded = ft_iterloop(main, &asnencoded, total_size);
+    encoded_len = ft_asnlen(NULL, total_size, &StructLen);
+    asnencoded = ft_combine(&asnencoded, total_size, encoded_len, StructLen);
+    return (asnencoded);
+}

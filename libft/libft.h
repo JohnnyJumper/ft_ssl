@@ -6,7 +6,7 @@
 /*   By: jtahirov <jtahirov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:57:50 by jtahirov          #+#    #+#             */
-/*   Updated: 2018/04/22 19:04:16 by jtahirov         ###   ########.fr       */
+/*   Updated: 2018/05/08 13:21:30 by jtahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,6 @@ int				ft_getopt(int argc, char *const argv[], const char *optstring);
 unsigned long	ft_power(unsigned long x, unsigned long y, int p);
 int 			ft_hextodec(char hexval[]);
 unsigned char 	*ft_hextodata(char* hex_string);
+unsigned long 	ft_modinv(unsigned long u, unsigned long v);
 
 #endif

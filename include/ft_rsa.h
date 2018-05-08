@@ -6,7 +6,7 @@
 /*   By: jtahirov <jtahirov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 01:45:37 by jtahirov          #+#    #+#             */
-/*   Updated: 2018/05/07 20:22:02 by jtahirov         ###   ########.fr       */
+/*   Updated: 2018/05/08 13:50:45 by jtahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@
 # define VERSION "\0x02\0x01\0x00"
 # define SEQUENCE_ASN1 0x30
 # define INT_ASN1 0x02
+# define CRT(x, y) ((1 / (MIN(x, y))) % (MAX(x, y)))
 
-typedef unsigned int t_uint;
-typedef unsigned long t_ulong;
+
+typedef unsigned int    t_uint;
+typedef unsigned long   t_ulong;
+typedef unsigned char   t_uchar;
 
 // RSAPrivateKey ::= SEQUENCE {
 //   version           Version,
@@ -40,7 +43,7 @@ typedef struct  s_dercrypto
 {
     unsigned long     modulus;
     unsigned long     public_exponent;
-    unsigned long     private_exponent;
+    unsigned long     priv_exponent;
     unsigned long     prime1;
     unsigned long     prime2;
     unsigned long     exponent1;
@@ -61,6 +64,6 @@ t_uint  		ft_random_between(t_uint a, t_uint b, int option);
 void		    ft_get_primes(t_dercrypto *main);
 t_ulong 		ft_get_modulo(t_uint pub, t_ulong totient);
 unsigned char   *ft_get_asn1(t_dercrypto *main, int *total_size);
-
+unsigned long   modinv(unsigned long u, unsigned long v);
 
 #endif
