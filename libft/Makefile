@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jtahirov <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: jtahirov <jtahirov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/11 13:01:35 by jtahirov          #+#    #+#              #
-#    Updated: 2018/03/14 22:35:38 by jtahirov         ###   ########.fr        #
+#    Updated: 2018/04/22 19:03:43 by jtahirov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME = libft.a
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 SRC = ft_isascii.c ft_memcmp.c ft_strchr.c ft_strlen.c ft_strrchr.c 		\
 	  ft_atoi.c ft_isdigit.c ft_memcpy.c ft_strcmp.c ft_strncat.c 		\
@@ -33,7 +33,7 @@ SRC = ft_isascii.c ft_memcmp.c ft_strchr.c ft_strlen.c ft_strrchr.c 		\
 	  ft_strnjoin.c ft_strrev.c ft_dectohex.c ft_dectooctal.c  ft_ltoa.c ft_strupper.c \
 	  ft_isletter.c ft_iscapital.c ft_strmjoin.c ft_get_binary.c ft_wcharlen.c \
 	  ft_get_next_line.c ft_print_object_bit.c ft_atoh.c ft_memjoin.c ft_getopt.c \
-	  ft_power.c
+	  ft_hextodec.c ft_power.c ft_hextodata.c
 
 DEPS = libft.h ./ft_printf/ft_printf.h
 OBJECT = $(SRC:.c=.o)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_rsa.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtahirov <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jtahirov <jtahirov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 01:45:37 by jtahirov          #+#    #+#             */
-/*   Updated: 2018/03/23 02:50:49 by jtahirov         ###   ########.fr       */
+/*   Updated: 2018/05/07 20:22:02 by jtahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@
 # include "../libft/libft.h"
 # include "../include/ft_ssl.h"
 
+# define VERSION "\0x02\0x01\0x00"
+# define SEQUENCE_ASN1 0x30
+# define INT_ASN1 0x02
 
 typedef unsigned int t_uint;
 typedef unsigned long t_ulong;
+
 // RSAPrivateKey ::= SEQUENCE {
 //   version           Version,
 //   modulus           INTEGER,  -- n
@@ -31,23 +35,32 @@ typedef unsigned long t_ulong;
 //   coefficient       INTEGER,  -- (inverse of q) mod p
 //   otherPrimeInfos   OtherPrimeInfos OPTIONAL
 // }
+
 typedef struct  s_dercrypto
 {
     unsigned long     modulus;
     unsigned long     public_exponent;
     unsigned long     private_exponent;
-    unsigned int      prime1;
-    unsigned int      prime2;
+    unsigned long     prime1;
+    unsigned long     prime2;
     unsigned long     exponent1;
     unsigned long     exponent2;
     unsigned long     coefficient;
 }               t_dercrypto;
 
+typedef union   u_itercrypto
+{
+    t_dercrypto     dercrypto;
+    unsigned long   itercrypto[8]; 
+}               t_itercrypto;
 
-int			ft_primeq(uint64_t prime, int probability);
-t_uint		ft_random(int option);
-t_uint		ft_random_between(t_uint a, t_uint b, int option);
-void		ft_get_primes(t_dercrypto *main);
-t_ulong		ft_get_modulo(t_uint pub, t_ulong totient);
+
+int			    ft_primeq(uint64_t prime, int probability);
+t_uint  		ft_random(int option);
+t_uint  		ft_random_between(t_uint a, t_uint b, int option);
+void		    ft_get_primes(t_dercrypto *main);
+t_ulong 		ft_get_modulo(t_uint pub, t_ulong totient);
+unsigned char   *ft_get_asn1(t_dercrypto *main, int *total_size);
+
 
 #endif

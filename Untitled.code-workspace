@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "rsa"
+		},
+		{
+			"path": "include"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {}
+}

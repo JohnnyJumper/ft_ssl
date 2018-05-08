@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtahirov <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jtahirov <jtahirov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 15:57:50 by jtahirov          #+#    #+#             */
-/*   Updated: 2018/03/15 00:31:09 by jtahirov         ###   ########.fr       */
+/*   Updated: 2018/04/22 19:04:16 by jtahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,12 @@ void			ft_putnbr_fd(int nb, int fd);
 t_list			*ft_lstnew(void const *content, size_t content_size);
 void			ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void			ft_lstdel(t_list **alst, void (*del)(void *, size_t));
-void			ft_lstadd(t_list **alst, t_list *new);
+void			ft_lstadd(t_list **alst, t_list *newl);
 void			ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void			*ft_bubblesort(int *array, size_t array_size);
 void			ft_print_array_int(int *array, size_t array_size);
-void			ft_lstpush(t_list **list, t_list *new);
+void			ft_lstpush(t_list **list, t_list *newl);
 char			*ft_strnjoin(char const *s1, char const *s2, int size);
 char			*ft_dectohex(unsigned long long int num);
 char			*ft_dectooctal(unsigned long long int num);
@@ -131,5 +131,7 @@ unsigned long	ft_atoh(unsigned char *input);
 unsigned char	ft_chrtohex(char x);
 int				ft_getopt(int argc, char *const argv[], const char *optstring);
 unsigned long	ft_power(unsigned long x, unsigned long y, int p);
+int 			ft_hextodec(char hexval[]);
+unsigned char 	*ft_hextodata(char* hex_string);
 
 #endif

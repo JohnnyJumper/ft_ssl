@@ -16,7 +16,7 @@ void	*ft_memjoin(void *dst, size_t size, void *src, size_t n)
 {
 	void	*result;
 
-	result = (!size) ? ft_memalloc(1) : ft_memalloc(size);
+	result = ft_memalloc(size + n);
 	result = ft_memcpy(result, dst, size);
 	ft_memcpy(result + size, src, n);
 	return (result);

@@ -45,7 +45,7 @@ SHA224_SRC = ft_sha224.c ft_sha224message.c ft_sha224parse.c ft_sha224algo.c ft_
 SHA224 = $(patsubst %, $(SHA224_DIR)/%, $(SHA224_SRC))
 
 RSA_DIR = ./rsa
-RSA_SRC =  main.c random.c ft_primeq.c primeGeneration.c uttility.c
+RSA_SRC =  main.c random.c ft_primeq.c primeGeneration.c uttility.c asn1converter.c
 RSA = $(patsubst %, $(RSA_DIR)/%, $(RSA_SRC))
 
 SRC_OBJ =$(SRC:.c=.o)
