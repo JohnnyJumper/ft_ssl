@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ssl.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtahirov <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jtahirov <jtahirov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 20:24:31 by jtahirov          #+#    #+#             */
-/*   Updated: 2018/02/01 22:04:37 by jtahirov         ###   ########.fr       */
+/*   Updated: 2018/05/08 18:47:46 by jtahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void		init_progs(t_prog *progs)
 	progs[3] = &ft_md5;
 	progs[4] = &ft_sha256;
 	progs[5] = &ft_sha224;
+	progs[6] = &ft_rsa;
 }
 
 t_prog		get_function(char *command, bool *cbc_mode)
@@ -28,7 +29,7 @@ t_prog		get_function(char *command, bool *cbc_mode)
 
 	if (!progs)
 	{
-		progs = ft_memalloc(sizeof(*progs) * 5);
+		progs = ft_memalloc(sizeof(*progs) * 6);
 		if (progs)
 			init_progs(progs);
 	}

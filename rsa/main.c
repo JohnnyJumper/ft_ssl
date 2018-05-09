@@ -6,28 +6,13 @@
 /*   By: jtahirov <jtahirov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 21:22:26 by jtahirov          #+#    #+#             */
-/*   Updated: 2018/05/08 15:27:19 by jtahirov         ###   ########.fr       */
+/*   Updated: 2018/05/08 18:49:26 by jtahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_rsa.h"
 
-// static char 	*ft_decrypto_to_base64(unsigned char *bitString, int total_size)
-// {
-// 	char 		*encoded;
-// 	t_binput 	base64;
-
-// 	ft_bzero(&base64, sizeof(t_binput));
-// 	base64.len = total_size - 1;
-// 	base64.flag.encode = true;
-// 	encoded = ft_base64_encode((char *)bitString, &base64);
-// 	return (encoded);
-// }
-
-
-
-
-int main()
+void 	ft_rsa_wrap(void)
 {
 	t_dercrypto 	main;
 	unsigned long 	totient;
@@ -51,11 +36,14 @@ int main()
 		if ((main.public_exponent * main.priv_exponent) % totient == 1)
 			break ;
 	};
-	
 	iter.dercrypto = main;
 	bit_string = ft_get_asn1(&main, &total_size);
 	ft_printf("-----BEGIN RSA PRIVATE KEY-----\n");
 	ft_printf("%s", base64_encodeV2(bit_string, &total_size));
 	ft_printf("-----END RSA PRIVATE KEY-----\n");
-return (0);
+}
+
+
+void 	ft_rsa(int argc, char **argv, bool cbc_mode) {
+
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ssl.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jtahirov <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jtahirov <jtahirov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 20:38:30 by jtahirov          #+#    #+#             */
-/*   Updated: 2018/02/01 22:05:21 by jtahirov         ###   ########.fr       */
+/*   Updated: 2018/05/08 18:47:10 by jtahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "ft_md5.h"
 # include "ft_sha256.h"
 # include "ft_sha224.h"
+# include "ft_rsa.h"
 
 typedef	void	(*t_prog)(int argc, char **argv, bool cbc_mode);
 
