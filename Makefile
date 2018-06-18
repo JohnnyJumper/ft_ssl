@@ -6,7 +6,7 @@
 #    By: jtahirov <jtahirov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 17:27:11 by jtahirov          #+#    #+#              #
-#    Updated: 2018/05/08 15:26:07 by jtahirov         ###   ########.fr        #
+#    Updated: 2018/06/18 08:53:19 by jtahirov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,19 +44,14 @@ SHA224_SRC = ft_sha224.c ft_sha224message.c ft_sha224parse.c ft_sha224algo.c ft_
 			 ft_sha224algo_helper.c ft_sha224_utillity.c ft_sha224output.c
 SHA224 = $(patsubst %, $(SHA224_DIR)/%, $(SHA224_SRC))
 
-RSA_DIR = ./rsa
-RSA_SRC =  main.c random.c ft_primeq.c primeGeneration.c uttility.c asn1converter.c
-RSA = $(patsubst %, $(RSA_DIR)/%, $(RSA_SRC))
-
 SRC_OBJ =$(SRC:.c=.o)
 BASE64_OBJ = $(BASE64:.c=.o)
 DES_OBJ = $(DES:.c=.o)
 MD5_OBJ = $(MD5:.c=.o)
 SHA256_OBJ = $(SHA256:.c=.o)
 SHA224_OBJ = $(SHA224:.c=.o)
-RSA_OBJ = $(RSA:.c=.o) utillity.o
 
-OBJ = $(SRC_OBJ) $(BASE64_OBJ) $(DES_OBJ) $(MD5_OBJ) $(SHA256_OBJ) $(SHA224_OBJ) $(RSA_OBJ)
+OBJ = $(SRC_OBJ) $(BASE64_OBJ) $(DES_OBJ) $(MD5_OBJ) $(SHA256_OBJ) $(SHA224_OBJ)
 LIBS = ./libft/libft.a
 
 all: $(NAME)
