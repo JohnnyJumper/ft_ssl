@@ -6,7 +6,7 @@
 /*   By: jtahirov <jtahirov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/14 01:45:37 by jtahirov          #+#    #+#             */
-/*   Updated: 2018/05/08 13:50:45 by jtahirov         ###   ########.fr       */
+/*   Updated: 2018/05/08 19:55:15 by jtahirov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,7 @@ void		    ft_get_primes(t_dercrypto *main);
 t_ulong 		ft_get_modulo(t_uint pub, t_ulong totient);
 unsigned char   *ft_get_asn1(t_dercrypto *main, int *total_size);
 unsigned long   modinv(unsigned long u, unsigned long v);
+void            ft_genrsa(int argc, char **argv, bool cbc_mode);
+
 
 #endif

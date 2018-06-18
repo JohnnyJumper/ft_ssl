@@ -6,7 +6,7 @@
 #    By: jtahirov <jtahirov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/03 17:27:11 by jtahirov          #+#    #+#              #
-#    Updated: 2018/05/08 15:26:07 by jtahirov         ###   ########.fr        #
+#    Updated: 2018/05/25 14:41:43 by jtahirov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SHA224_SRC = ft_sha224.c ft_sha224message.c ft_sha224parse.c ft_sha224algo.c ft_
 SHA224 = $(patsubst %, $(SHA224_DIR)/%, $(SHA224_SRC))
 
 RSA_DIR = ./rsa
-RSA_SRC =  main.c random.c ft_primeq.c primeGeneration.c uttility.c asn1converter.c
+RSA_SRC =  ft_rsa.c random.c ft_primeq.c primeGeneration.c uttility.c \
+			asn1converter.c
 RSA = $(patsubst %, $(RSA_DIR)/%, $(RSA_SRC))
 
 SRC_OBJ =$(SRC:.c=.o)
@@ -71,7 +72,7 @@ $(LIBS):
 	@echo "\033[0m\c"
 
 $(NAME): $(OBJ) $(LIBS)
-	@echo "\033[0;35m\c"
+	@echo "\033[0;33m\c"
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 	@echo "\033[0m\c"
 

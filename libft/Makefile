@@ -6,7 +6,7 @@
 #    By: jtahirov <jtahirov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/07/11 13:01:35 by jtahirov          #+#    #+#              #
-#    Updated: 2018/05/08 13:21:12 by jtahirov         ###   ########.fr        #
+#    Updated: 2018/05/25 14:41:47 by jtahirov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ index:
 	@ranlib $(NAME)
 
 $(NAME): $(OBJECT) $(PRINTF_OBJECT)
-	@echo "\033[0;33m\c"
+	@echo "\033[0;35m\c"
 	ar rc $@ $^
 	@echo "\033[0;m\c"
 
